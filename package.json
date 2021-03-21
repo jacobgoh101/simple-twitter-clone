@@ -9,7 +9,7 @@
     "concurrently": "^6.0.0"
   },
   "scripts": {
-    "start": "concurrently -n docker,backend 'docker-compose -f docker-compose.dev.yml up -d' 'yarn --cwd backend && yarn --cwd backend start:dev'",
+    "start": ". .script/load_dotenv.sh && concurrently -n docker,backend,frontend 'docker-compose -f docker-compose.dev.yml up -d' 'yarn --cwd backend && yarn --cwd backend start:dev' 'yarn --cwd frontend && yarn --cwd frontend serve --port ${FRONTEND_PORT_NUMBER}'",
     "stop": "docker-compose -f docker-compose.dev.yml stop",
     "down": "docker-compose -f docker-compose.dev.yml down"
   }
