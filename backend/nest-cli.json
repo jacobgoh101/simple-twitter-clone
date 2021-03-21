@@ -16,6 +16,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/web/tsconfig.app.json"
       }
+    },
+    "account": {
+      "type": "library",
+      "root": "libs/account",
+      "entryFile": "index",
+      "sourceRoot": "libs/account/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/account/tsconfig.lib.json"
+      }
     }
   }
 }

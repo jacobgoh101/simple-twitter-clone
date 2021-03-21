@@ -9,6 +9,7 @@ export const ENV = {
   BACKEND_HOSTNAME: process.env.BACKEND_HOSTNAME,
   FRONTEND_HOSTNAME: process.env.FRONTEND_HOSTNAME,
   FRONTEND_PORT_NUMBER: +process.env.FRONTEND_PORT_NUMBER,
+  SESSION_SECRET: process.env.SESSION_SECRET,
   isDev: process.env.NODE_ENV === 'development',
   isStaging: process.env.NODE_ENV === 'staging',
   isProd: process.env.NODE_ENV === 'production',
