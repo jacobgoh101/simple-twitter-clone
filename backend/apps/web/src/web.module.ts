@@ -10,6 +10,9 @@ import { UserEntity } from '../../../libs/account/src/user/user.entity';
 import { SessionEntity } from '../../../libs/account/src/auth/session.entity';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { TweetController } from './tweet/tweet.controller';
+import { TweetEntity } from '../../../libs/tweet/src/tweet.entity';
+import { TweetModule } from '../../../libs/tweet/src';
 
 @Module({
   imports: [
@@ -20,7 +23,7 @@ import { join } from 'path';
       username: ENV.DB_USERNAME,
       password: ENV.DB_PASSWORD,
       database: ENV.DB_NAME,
-      entities: [UserEntity, SessionEntity],
+      entities: [UserEntity, SessionEntity, TweetEntity],
       synchronize: ENV.isDev,
       logging: ENV.isDev,
     }),
@@ -29,8 +32,9 @@ import { join } from 'path';
     }),
     AuthModule,
     UserModule,
+    TweetModule,
   ],
-  controllers: [WebController, UserController],
+  controllers: [WebController, UserController, TweetController],
   providers: [WebService],
 })
 export class WebModule {}

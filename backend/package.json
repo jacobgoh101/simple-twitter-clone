@@ -90,7 +90,9 @@
     ],
     "moduleNameMapper": {
       "@app/account/(.*)": "<rootDir>/libs/account/src/$1",
-      "@app/account": "<rootDir>/libs/account/src"
+      "@app/account": "<rootDir>/libs/account/src",
+      "@app/tweet/(.*)": "<rootDir>/libs/tweet/src/$1",
+      "@app/tweet": "<rootDir>/libs/tweet/src"
     }
   }
 }
