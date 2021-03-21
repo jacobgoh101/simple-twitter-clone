@@ -14,7 +14,7 @@ import { WebService } from './web.service';
       password: ENV.DB_PASSWORD,
       database: ENV.DB_NAME,
       entities: [],
-      synchronize: true,
+      synchronize: ENV.isDev,
       logging: ENV.isDev,
     }),
   ],
