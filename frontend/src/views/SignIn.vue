@@ -2,6 +2,7 @@
   <div class="row mt-5 pt-5">
     <div class="col"></div>
     <div class="col">
+      <h1 class="text-center pb-5">Sign In</h1>
       <form @submit.prevent="handleFormSubmit">
         <div class="form-group">
           <label for="email">Username:</label>
