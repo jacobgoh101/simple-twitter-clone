@@ -19,8 +19,14 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('/users')
-  signUp(@Body(new ValidationPipe()) body: SignUpDto) {
-    return this.userService.create(body);
+  async signUp(@Body(new ValidationPipe()) body: SignUpDto, @Req() req) {
+    const user = await this.userService.create(body);
+    return new Promise((resolve, reject) => {
+      req.login({ username: body.username, password: body.password }, (err) => {
+        if (err) reject(err);
+        resolve(user);
+      });
+    });
   }
 
   @UseGuards(LoginGuard)

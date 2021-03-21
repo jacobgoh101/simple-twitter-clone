@@ -13,6 +13,10 @@ async function bootstrap() {
   const app = await NestFactory.create(WebModule);
 
   app.use(helmet());
+  app.enableCors({
+    origin: [ENV.FRONTEND_HOSTNAME],
+    credentials: true,
+  });
 
   app.setGlobalPrefix('api-v1');
 

@@ -8,6 +8,8 @@ import { AuthModule } from '../../../libs/account/src/auth/auth.module';
 import { UserModule } from '../../../libs/account/src/user/user.module';
 import { UserEntity } from '../../../libs/account/src/user/user.entity';
 import { SessionEntity } from '../../../libs/account/src/auth/session.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -21,6 +23,9 @@ import { SessionEntity } from '../../../libs/account/src/auth/session.entity';
       entities: [UserEntity, SessionEntity],
       synchronize: ENV.isDev,
       logging: ENV.isDev,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../../../frontend', 'dist'),
     }),
     AuthModule,
     UserModule,
