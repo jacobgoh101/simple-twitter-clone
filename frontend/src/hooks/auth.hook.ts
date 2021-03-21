@@ -1,5 +1,6 @@
 import { Ref, computed, ComputedRef, watch, ref } from '@vue/composition-api';
 import { IResponse } from 'swrv/dist/types';
+import { SWR_KEYS } from '../constants/swrv.constant';
 import router from '../router';
 import { $axios } from '../util/$axios.util';
 import { useSwrvExtra } from '../util/swrv.util';
@@ -26,13 +27,6 @@ interface SignupPayload {
   username: string;
   email: string;
   password: string;
-}
-
-enum SWR_KEYS {
-  GET_ME = 'GET_ME',
-  LOGOUT = 'LOGOUT',
-  LOGIN = 'LOGIN',
-  SIGNUP = 'SIGNUP',
 }
 
 export const useAuth: () => UseAuth = () => {

@@ -16,12 +16,20 @@ export class TweetService {
   }
 
   list(minId = 0) {
-    return this.twtRepo.find({
-      where: { id: MoreThan(minId) },
-      order: {
-        id: 'DESC',
-      },
-      take: 10,
-    });
+    return this.twtRepo
+      .find({
+        where: { id: MoreThan(minId) },
+        order: {
+          id: 'DESC',
+        },
+        take: 10,
+        relations: ['user'],
+      })
+      .then((arr) =>
+        arr.map((t) => {
+          const user = t.user?.toResponseObject();
+          return { ...t, user };
+        }),
+      );
   }
 }
