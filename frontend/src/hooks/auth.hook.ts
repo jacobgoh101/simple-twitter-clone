@@ -16,6 +16,7 @@ interface UseAuth {
   isAuthenticated: Ref<boolean>;
   user: ComputedRef<User | undefined | null>;
   mutate: IResponse['mutate'];
+  isValidating: Ref<boolean>;
 }
 
 interface LoginPayload {
@@ -30,7 +31,7 @@ interface SignupPayload {
 }
 
 export const useAuth: () => UseAuth = () => {
-  const { data: user, mutate } = useSwrvExtra(
+  const { data: user, mutate, isValidating } = useSwrvExtra(
     SWR_KEYS.GET_ME,
     () =>
       $axios
@@ -42,7 +43,7 @@ export const useAuth: () => UseAuth = () => {
 
   const isAuthenticated = computed(() => !!user.value);
 
-  return { isAuthenticated, user, mutate };
+  return { isAuthenticated, user, mutate, isValidating };
 };
 
 export const useAuthInvalidation = (isSuccess: Ref<boolean>) => {
@@ -50,7 +51,6 @@ export const useAuthInvalidation = (isSuccess: Ref<boolean>) => {
   watch(isSuccess, (v, ov) => {
     if (v && !ov) {
       invalidateAuth();
-      if (router.currentRoute.fullPath !== '/') router.push('/');
     }
   });
 };
@@ -107,12 +107,12 @@ export const useSignup = () => {
 };
 
 export const useAuthenticatedUserHandler = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isValidating } = useAuth();
 
   watch(
-    isAuthenticated,
+    () => isAuthenticated.value && !isValidating.value,
     (v) => {
-      if (v) router.replace({ name: ROUTE_NAME.HOME });
+      if (v) router.push({ name: ROUTE_NAME.HOME });
     },
     { immediate: true }
   );
