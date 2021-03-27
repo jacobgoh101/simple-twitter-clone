@@ -54,7 +54,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from '@vue/composition-api';
 import { AxiosError } from 'axios';
-import { useSignup } from '../hooks/auth.hook';
+import { useAuthenticatedUserHandler, useSignup } from '../hooks/auth.hook';
 import { ROUTE_NAME } from '../router';
 
 export default defineComponent({
@@ -63,6 +63,7 @@ export default defineComponent({
     const email = ref('');
     const password = ref('');
 
+    useAuthenticatedUserHandler();
     const { error, signup } = useSignup();
 
     const handleFormSubmit = () =>

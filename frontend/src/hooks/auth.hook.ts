@@ -105,3 +105,16 @@ export const useSignup = () => {
   };
   return { error, signup };
 };
+
+export const useAuthenticatedUserHandler = () => {
+  const { isAuthenticated } = useAuth();
+
+  watch(
+    isAuthenticated,
+    (v) => {
+      if (v) router.replace({ name: ROUTE_NAME.HOME });
+    },
+    { immediate: true }
+  );
+  return {};
+};
