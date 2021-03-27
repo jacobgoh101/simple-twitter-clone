@@ -7,6 +7,10 @@ export class BCRYPT {
     return bcrypt.hash(password, SALT_ROUND);
   }
 
+  static hashPasswordSync(password: string): string {
+    return bcrypt.hashSync(password, SALT_ROUND);
+  }
+
   static comparePassword(
     password: string,
     passwordHash: string,

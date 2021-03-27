@@ -1,6 +1,6 @@
 import { Ref, computed, ComputedRef, watch, ref } from '@vue/composition-api';
 import { IResponse } from 'swrv/dist/types';
-import router, { ROUTE_NAME } from '../router';
+import router from '../router';
 import { $axios } from '../util/$axios.util';
 import { useSwrvExtra } from '../util/swrv.util';
 

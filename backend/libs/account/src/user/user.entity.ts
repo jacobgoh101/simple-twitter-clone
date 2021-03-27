@@ -12,8 +12,18 @@ import { BCRYPT } from '../../../util/bcrypt.util';
 
 export type UserResponseObject = Pick<
   UserEntity,
-  Exclude<keyof UserEntity, 'passwordHash'>
+  Exclude<
+    keyof UserEntity,
+    | 'passwordHash'
+    | 'beforeInsert'
+    | 'beforeUpdate'
+    | 'comparePassword'
+    | 'toResponseObject'
+  >
 >;
+
+export const toUserResponseObject = (user: Partial<UserEntity>) =>
+  pickBy(user, (_, key) => key !== 'passwordHash') as UserResponseObject;
 
 @Entity('users')
 export class UserEntity {
@@ -44,10 +54,7 @@ export class UserEntity {
 
   // get response object, to filter out sensitive field like password
   toResponseObject(): UserResponseObject {
-    return pickBy(
-      this,
-      (_, key) => key !== 'passwordHash',
-    ) as UserResponseObject;
+    return toUserResponseObject(this);
   }
 
   @Column({ unique: true })
