@@ -1,6 +1,15 @@
 version: "3.5"
 
 services:
+  app:
+    build:
+      .
+    env_file:
+      - .env
+    container_name: twt_clone_app
+    networks:
+      - twt_clone
+
   database:
     image: "postgres:12.6-alpine"
     env_file:
