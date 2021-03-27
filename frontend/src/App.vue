@@ -11,3 +11,10 @@ import NavBar from '@/components/NavBar.vue';
 
 export default Vue.extend({ components: { NavBar } });
 </script>
+
+<style lang="scss">
+html,
+body {
+  overflow-x: hidden;
+}
+</style>

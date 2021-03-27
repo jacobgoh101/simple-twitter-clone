@@ -43,7 +43,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from '@vue/composition-api';
-import { useLogin } from '../hooks/auth.hook';
+import { useAuthenticatedUserHandler, useLogin } from '../hooks/auth.hook';
 import { ROUTE_NAME } from '../router';
 
 export default defineComponent({
@@ -51,6 +51,7 @@ export default defineComponent({
     const username = ref('');
     const password = ref('');
 
+    useAuthenticatedUserHandler();
     const { error, login } = useLogin();
 
     const handleFormSubmit = () =>
