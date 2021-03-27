@@ -16,6 +16,6 @@ RUN yarn --cwd frontend
 
 COPY . /app/
 RUN yarn --cwd backend build
-RUN yarn --cwd frontend build
+RUN VUE_APP_API_BASE_URL=https://simple-twitter-clone.jacobgoh.dev/api-v1 VUE_APP_SOCKET_IO_BASE_URL=https://simple-twitter-clone.jacobgoh.dev yarn --cwd frontend build
 
 CMD ["npx","pm2-runtime", "backend/dist/apps/web/main.js"]
