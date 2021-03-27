@@ -1,7 +1,7 @@
 import { Ref, computed, ComputedRef, watch, ref } from '@vue/composition-api';
 import { IResponse } from 'swrv/dist/types';
 import { SWR_KEYS } from '../constants/swrv.constant';
-import router from '../router';
+import router, { ROUTE_NAME } from '../router';
 import { $axios } from '../util/$axios.util';
 import { useSwrvExtra } from '../util/swrv.util';
 
@@ -32,7 +32,11 @@ interface SignupPayload {
 export const useAuth: () => UseAuth = () => {
   const { data: user, mutate } = useSwrvExtra(
     SWR_KEYS.GET_ME,
-    () => $axios.get<User>('me').then((d) => d.data),
+    () =>
+      $axios
+        .get<User>('me')
+        .then((d) => d.data)
+        .catch(() => null),
     { shouldRetryOnError: false, revalidateOnFocus: false }
   );
 
@@ -63,6 +67,9 @@ export const useLogout = () => {
     if (shouldLogout.value) mutateLogout();
     else shouldLogout.value = true;
   };
+  watch(isSuccess, (v, ov) => {
+    if (v && !ov) router.push({ name: ROUTE_NAME.SIGN_IN });
+  });
   return { error, logout };
 };
 
