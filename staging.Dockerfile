@@ -18,4 +18,4 @@ COPY . /app/
 RUN yarn --cwd backend build
 RUN yarn --cwd frontend build
 
-CMD ["npx","pm2-runtime", "backend/dist/main.js"]
+CMD ["npx","pm2-runtime", "backend/dist/apps/web/main.js"]
