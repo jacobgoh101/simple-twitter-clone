@@ -11,8 +11,10 @@ COPY package.json yarn.lock /app/
 RUN yarn
 COPY backend/package.json backend/yarn.lock /app/backend/
 RUN yarn --cwd backend
+RUN yarn --cwd backend build
 COPY frontend/package.json frontend/yarn.lock /app/frontend/
 RUN yarn --cwd frontend
+RUN yarn --cwd frontend build
 
 # Or if you're using Yarn
 # ADD package.json yarn.lock /app/
