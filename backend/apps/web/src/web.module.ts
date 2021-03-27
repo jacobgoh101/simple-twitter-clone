@@ -1,8 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ENV } from '../../../libs/env/env';
+import { ENV } from '../../../libs/config/env';
 import { WebController } from './web.controller';
 import { WebService } from './web.service';
+import { UserController } from './user/user.controller';
+import { AuthModule } from '../../../libs/account/src/auth/auth.module';
+import { UserModule } from '../../../libs/account/src/user/user.module';
+import { UserEntity } from '../../../libs/account/src/user/user.entity';
+import { SessionEntity } from '../../../libs/account/src/auth/session.entity';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -13,12 +20,17 @@ import { WebService } from './web.service';
       username: ENV.DB_USERNAME,
       password: ENV.DB_PASSWORD,
       database: ENV.DB_NAME,
-      entities: [],
+      entities: [UserEntity, SessionEntity],
       synchronize: ENV.isDev,
       logging: ENV.isDev,
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../../../frontend', 'dist'),
+    }),
+    AuthModule,
+    UserModule,
   ],
-  controllers: [WebController],
+  controllers: [WebController, UserController],
   providers: [WebService],
 })
 export class WebModule {}

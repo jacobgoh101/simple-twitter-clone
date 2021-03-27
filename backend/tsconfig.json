@@ -11,6 +11,13 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "paths": {}
+    "paths": {
+      "@app/account": [
+        "libs/account/src"
+      ],
+      "@app/account/*": [
+        "libs/account/src/*"
+      ]
+    }
   }
 }
