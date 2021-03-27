@@ -18,7 +18,7 @@ export class UserService {
     const isEmailExist = await this.isEmailExist(email);
     if (isUsernameExist || isEmailExist)
       throw new ConflictException(
-        'The email or username is already being used.',
+        'The email and/or username is already being used.',
       );
     const passwordHash = await BCRYPT.hashPassword(password);
     const user = await this.userRepo.save(
