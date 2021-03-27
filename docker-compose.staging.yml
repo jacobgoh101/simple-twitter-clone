@@ -27,12 +27,18 @@ services:
       - ./config/nginx:/etc/nginx/conf.d
       - ./config/certbot/conf:/etc/letsencrypt
       - ./config/certbot/www:/var/www/certbot
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    networks:
+      - twt_clone
       
   certbot:
     image: certbot/certbot
     volumes:
       - ./config/certbot/conf:/etc/letsencrypt
       - ./config/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    networks:
+      - twt_clone
 
   # redis:
   #   image: "bitnami/redis:5.0"
@@ -48,7 +54,6 @@ services:
   #     - twt_clone
 
 volumes:
-  redis_data:
   twt_clone_pgdata:
 
 networks:
