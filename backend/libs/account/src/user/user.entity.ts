@@ -5,9 +5,11 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { TweetEntity } from '../../../tweet/src/tweet.entity';
 import { BCRYPT } from '../../../util/bcrypt.util';
 
 export type UserResponseObject = Pick<
@@ -65,4 +67,7 @@ export class UserEntity {
 
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
+
+  @OneToMany(() => TweetEntity, (twt) => twt.user)
+  tweets: TweetEntity[];
 }

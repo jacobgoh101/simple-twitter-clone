@@ -17,6 +17,12 @@
       ],
       "@app/account/*": [
         "libs/account/src/*"
+      ],
+      "@app/tweet": [
+        "libs/tweet/src"
+      ],
+      "@app/tweet/*": [
+        "libs/tweet/src/*"
       ]
     }
   }

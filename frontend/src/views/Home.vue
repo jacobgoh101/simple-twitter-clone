@@ -1,17 +1,22 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  </div>
+  <b-container class="pt-5">
+    <b-row>
+      <b-col>
+        <TweetList />
+      </b-col>
+      <b-col>
+        <CreateTweetForm />
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import TweetList from '@/components/TweetList.vue';
+import CreateTweetForm from '@/components/CreateTweetForm.vue';
 
 export default Vue.extend({
-  components: {
-    HelloWorld,
-  },
+  components: { TweetList, CreateTweetForm },
 });
 </script>

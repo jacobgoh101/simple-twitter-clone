@@ -25,6 +25,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/account/tsconfig.lib.json"
       }
+    },
+    "tweet": {
+      "type": "library",
+      "root": "libs/tweet",
+      "entryFile": "index",
+      "sourceRoot": "libs/tweet/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/tweet/tsconfig.lib.json"
+      }
     }
   }
 }
