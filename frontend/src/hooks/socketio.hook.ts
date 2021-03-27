@@ -1,4 +1,4 @@
-import { ref } from '@vue/composition-api';
+import { onBeforeUnmount, ref } from '@vue/composition-api';
 import io from 'socket.io-client';
 import { Tweet } from '../api/tweet.api';
 
@@ -13,6 +13,8 @@ export const useTwtListEvent = () => {
   socket.on('new-twt-list', (payload: Tweet[]) => {
     data.value = payload;
   });
-
+  onBeforeUnmount(() => {
+    socket.close();
+  });
   return { data };
 };
