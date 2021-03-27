@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { BCRYPT } from '../../../util/bcrypt.util';
@@ -14,6 +14,12 @@ export class UserService {
 
   async create(data: SignUpDto) {
     const { email, username, password } = data;
+    const isUsernameExist = await this.isUsernameExist(username);
+    const isEmailExist = await this.isEmailExist(email);
+    if (isUsernameExist || isEmailExist)
+      throw new ConflictException(
+        'The email and/or username is already being used.',
+      );
     const passwordHash = await BCRYPT.hashPassword(password);
     const user = await this.userRepo.save(
       this.userRepo.create({
@@ -23,6 +29,14 @@ export class UserService {
       }),
     );
     return user.toResponseObject();
+  }
+
+  private isUsernameExist(username: string) {
+    return this.userRepo.count({ where: { username } }).then((c) => c > 0);
+  }
+
+  private isEmailExist(email: string) {
+    return this.userRepo.count({ where: { email } }).then((c) => c > 0);
   }
 
   async findOne(username: string) {

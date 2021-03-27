@@ -11,7 +11,7 @@ export class AuthService {
     pass: string,
   ): Promise<UserResponseObject | null> {
     const user = await this.usersService.findOne(username);
-    const isValid = await user.comparePassword(pass);
+    const isValid = await user?.comparePassword(pass);
     if (isValid) {
       return user.toResponseObject();
     }
