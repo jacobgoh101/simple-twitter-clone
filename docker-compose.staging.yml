@@ -3,7 +3,8 @@ version: "3.5"
 services:
   app:
     build:
-      .
+      context: .
+      dockerfile: staging.Dockerfile
     env_file:
       - .env
     container_name: twt_clone_app
