@@ -2,7 +2,6 @@ import { ref, watch } from '@vue/composition-api';
 import { mutate } from 'swrv';
 import { CreateNewTweetPayload, TWEET_API } from '../api/tweet.api';
 import { SWR_KEYS } from '../constants/swrv.constant';
-import { $axios } from '../util/$axios.util';
 import { useSwrvExtra } from '../util/swrv.util';
 
 export const useListTweet = () => {

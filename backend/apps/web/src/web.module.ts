@@ -13,6 +13,7 @@ import { join } from 'path';
 import { TweetController } from './tweet/tweet.controller';
 import { TweetEntity } from '../../../libs/tweet/src/tweet.entity';
 import { TweetModule } from '../../../libs/tweet/src';
+import { TweetGateway } from './tweet/tweet.gateway';
 
 @Module({
   imports: [
@@ -35,6 +36,6 @@ import { TweetModule } from '../../../libs/tweet/src';
     TweetModule,
   ],
   controllers: [WebController, UserController, TweetController],
-  providers: [WebService],
+  providers: [WebService, TweetGateway],
 })
 export class WebModule {}
