@@ -3,6 +3,9 @@
     <div class="col"></div>
     <div class="col">
       <h1 class="text-center pb-5">Sign In</h1>
+      <b-alert :show="!!error" variant="danger">
+        Invalid username and/or password
+      </b-alert>
       <form @submit.prevent="handleFormSubmit">
         <div class="form-group">
           <label for="email">Username:</label>

@@ -5,6 +5,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -32,6 +33,7 @@ export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Index()
   @Column({
     unique: true,
   })
@@ -59,6 +61,7 @@ export class UserEntity {
     return toUserResponseObject(this);
   }
 
+  @Index()
   @Column({ unique: true })
   email: string;
 

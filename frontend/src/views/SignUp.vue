@@ -3,6 +3,9 @@
     <div class="col"></div>
     <div class="col">
       <h1 class="text-center pb-5">Sign Up</h1>
+      <b-alert :show="!!error" variant="danger">
+        {{ errorMsg }}
+      </b-alert>
       <form @submit.prevent="handleFormSubmit">
         <div class="form-group">
           <label for="email">Username:</label>
@@ -49,7 +52,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from '@vue/composition-api';
+import { computed, defineComponent, ref } from '@vue/composition-api';
+import { AxiosError } from 'axios';
 import { useSignup } from '../hooks/auth.hook';
 import { ROUTE_NAME } from '../router';
 
@@ -68,7 +72,23 @@ export default defineComponent({
         password: password.value,
       });
 
-    return { username, email, password, handleFormSubmit, error, ROUTE_NAME };
+    const errorMsg = computed<string>(() => {
+      return (
+        (error.value as AxiosError)?.response?.data?.message?.join?.('. ') ||
+        (error.value as AxiosError)?.response?.data?.message ||
+        (error.value as AxiosError)?.message
+      );
+    });
+
+    return {
+      username,
+      email,
+      password,
+      handleFormSubmit,
+      error,
+      errorMsg,
+      ROUTE_NAME,
+    };
   },
 });
 </script>
