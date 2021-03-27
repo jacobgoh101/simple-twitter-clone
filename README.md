@@ -8,3 +8,29 @@
 - TWT-6 As a logged-in user, I want to be able post a new tweet under my name.
 - TWT-7 As a logged-in user, I want to be able to see tweets posted by other users.
 - TWT-8 Setup staging server and deployment flow.
+
+### How to setup local development environment
+
+```sh
+git clone git@github.com:jacobgoh101/simple-twitter-clone.git
+cd simple-twitter-clone
+cp .env.sample .env
+yarn
+yarn start
+```
+
+### How to deploy to staging
+
+on your machine (or within a CI pipeline)
+
+```sh
+docker login --username jacobgoh101 --password-stdin
+sh .script/create-staging-docker-image.sh
+```
+
+visit staging server
+```
+cd /root/simple-twitter-clone
+docker-compose -f docker-compose.staging.yml pull
+docker-compose -f docker-compose.staging.yml up -d
+```
